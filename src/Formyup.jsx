@@ -84,6 +84,23 @@ function Formyup() {
           )}
         </div>
 
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2
+              ${errors.password ? "border-red-500 focus:ring-red-300" : "focus:ring-blue-300"}`}
+            {...register("confirmPassword")}
+          />
+          {errors.confirmPassword && (
+            <p className="text-sm text-red-600 mt-1">
+              {errors.confirmPassword?.message}
+            </p>
+          )}
+        </div>
+
         {/* Submit */}
         <button
           type="submit"
