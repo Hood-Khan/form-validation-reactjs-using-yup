@@ -1,13 +1,17 @@
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "./schema";
 
 function Formyup() {
   const { register, handleSubmit, control, formState } = useForm({
-    defaultValues: {
-      name: "khan",
-      email: "xyz@gmail.com",
-      password: "123456"
-    },
+    // defaultValues: {
+    //   name: "khan",
+    //   email: "xyz@gmail.com",
+    //   password: "123456"
+    // },
+
+    resolver: yupResolver(registerSchema)
   });
 
   const { errors } = formState;
@@ -35,11 +39,11 @@ function Formyup() {
             type="text"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 
               ${errors.name ? "border-red-500 focus:ring-red-300" : "focus:ring-blue-300"}`}
-            {...register("name", { required: "Name is required" })}
+            {...register("name")}
           />
           {errors.name && (
             <p className="text-sm text-red-600 mt-1">
-              {errors.name.message}
+              {errors.name?.message}
             </p>
           )}
         </div>
@@ -53,20 +57,11 @@ function Formyup() {
             type="email"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2
               ${errors.email ? "border-red-500 focus:ring-red-300" : "focus:ring-blue-300"}`}
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Please enter a valid email address",
-              },
-              validate: (value) =>
-                value !== "admin@example.com" ||
-                "Enter a different email address",
-            })}
+            {...register("email")}
           />
           {errors.email && (
             <p className="text-sm text-red-600 mt-1">
-              {errors.email.message}
+              {errors.email?.message}
             </p>
           )}
         </div>
@@ -80,17 +75,11 @@ function Formyup() {
             type="password"
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2
               ${errors.password ? "border-red-500 focus:ring-red-300" : "focus:ring-blue-300"}`}
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must be at least 6 characters long",
-              },
-            })}
+            {...register("password")}
           />
           {errors.password && (
             <p className="text-sm text-red-600 mt-1">
-              {errors.password.message}
+              {errors.password?.message}
             </p>
           )}
         </div>
